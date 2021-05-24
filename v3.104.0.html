@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script
+		src="https://polyfill.io/v3/polyfill.js?features=Intl.DateTimeFormat,Intl.DateTimeFormat.~locale.es,Intl.NumberFormat.~locale.es,Intl.PluralRules.~locale.es&version=3.104.0"></script>
+</head>
+
+<body>
+	<script>
+		var start = new Date().valueOf();
+		var end = new Date().valueOf();
+		var times = [];
+		for (var i = 0; i < 100; i++) {
+			var event = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+			event.toLocaleString('es', { timeZone: 'UTC' });
+
+			end = new Date().valueOf();
+			times.push(end - start);
+			start = new Date().valueOf();
+		}
+
+		times.sort();
+		var min = 10000000;
+		var max = 0;
+		for (var j = 0; j < times.length; j++) {
+			var time = times[j];
+
+			if (time > max) {
+				max = time;
+			}
+
+			if (time < min) {
+				min = time;
+			}
+		}
+
+		var metrics = [
+			'version : v3.104.0',
+			'min: ' + min,
+			'max: ' + max,
+			'50th: ' + times[50],
+			'90th: ' + times[90],
+			'95th: ' + times[95]
+		]
+
+		for (let k = 0; k < metrics.length; k++) {
+			var p = document.createElement('P');
+			p.innerText = metrics[k];
+			document.body.appendChild(p);
+		}
+	</script>
+</body>
+
+</html>
